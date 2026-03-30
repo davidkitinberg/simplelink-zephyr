@@ -5,3 +5,4 @@
 
 board_runner_args(jlink "--device=CC2745R10-Q1")
 include(${ZEPHYR_BASE}/boards/common/jlink.board.cmake)
+include(${ZEPHYR_BASE}/boards/common/openocd.board.cmake)

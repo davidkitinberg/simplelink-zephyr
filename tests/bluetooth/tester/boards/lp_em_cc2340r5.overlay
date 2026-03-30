@@ -1,0 +1,13 @@
+/*
+ * BTP tester overlay for TI LP_EM_CC2340R5
+ *
+ * Same as cc2340r53 — single UART used exclusively for BTP.
+ */
+
+/ {
+	chosen {
+		zephyr,uart-pipe = &uart0;
+		/delete-property/ zephyr,console;
+		/delete-property/ zephyr,shell-uart;
+	};
+};
