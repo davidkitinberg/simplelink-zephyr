@@ -28,7 +28,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME, CONFIG_BTTESTER_LOG_LEVEL);
 
 #include "btp/btp.h"
 
-static ATOMIC_DEFINE(registered_services, BTP_SERVICE_ID_MAX);
+static ATOMIC_DEFINE(registered_services, BTP_SERVICE_ID_MAX + 1);
 
 static uint8_t supported_commands(const void *cmd, uint16_t cmd_len,
 				  void *rsp, uint16_t *rsp_len)
@@ -108,7 +108,23 @@ static uint8_t supported_services(const void *cmd, uint16_t cmd_len,
 	tester_set_bit(rp->data, BTP_SERVICE_ID_TMAP);
 #endif /* CONFIG_BT_TMAP */
 
-	*rsp_len = sizeof(*rp) + 2;
+	/* octet 3 */
+#if defined(CONFIG_BT_OTS)
+	tester_set_bit(rp->data, BTP_SERVICE_ID_OTS);
+#endif /* CONFIG_BT_OTS */
+
+	/* octet 4 */
+#if defined(CONFIG_BT_BPS)
+	tester_set_bit(rp->data, BTP_SERVICE_ID_BPS);
+#endif /* CONFIG_BT_BPS */
+#if defined(CONFIG_BT_WSS)
+	tester_set_bit(rp->data, BTP_SERVICE_ID_WSS);
+#endif /* CONFIG_BT_WSS */
+#if defined(CONFIG_BT_SPS)
+	tester_set_bit(rp->data, BTP_SERVICE_ID_SPS);
+#endif /* CONFIG_BT_SPS */
+
+	*rsp_len = sizeof(*rp) + 5;
 
 	return BTP_STATUS_SUCCESS;
 }
@@ -250,6 +266,21 @@ static uint8_t register_service(const void *cmd, uint16_t cmd_len,
 		status = tester_init_ots();
 		break;
 #endif /* CONFIG_BT_OTS */
+#if defined(CONFIG_BT_BPS)
+	case BTP_SERVICE_ID_BPS:
+		status = tester_init_bps();
+		break;
+#endif /* CONFIG_BT_BPS */
+#if defined(CONFIG_BT_WSS)
+	case BTP_SERVICE_ID_WSS:
+		status = tester_init_wss();
+		break;
+#endif /* CONFIG_BT_WSS */
+#if defined(CONFIG_BT_SPS)
+	case BTP_SERVICE_ID_SPS:
+		status = tester_init_sps();
+		break;
+#endif /* CONFIG_BT_SPS */
 	default:
 		LOG_WRN("unknown id: 0x%02x", cp->id);
 		status = BTP_STATUS_FAILED;
@@ -397,6 +428,21 @@ static uint8_t unregister_service(const void *cmd, uint16_t cmd_len,
 		status = tester_unregister_ots();
 		break;
 #endif /* CONFIG_BT_OTS */
+#if defined(CONFIG_BT_BPS)
+	case BTP_SERVICE_ID_BPS:
+		status = tester_unregister_bps();
+		break;
+#endif /* CONFIG_BT_BPS */
+#if defined(CONFIG_BT_WSS)
+	case BTP_SERVICE_ID_WSS:
+		status = tester_unregister_wss();
+		break;
+#endif /* CONFIG_BT_WSS */
+#if defined(CONFIG_BT_SPS)
+	case BTP_SERVICE_ID_SPS:
+		status = tester_unregister_sps();
+		break;
+#endif /* CONFIG_BT_SPS */
 	default:
 		LOG_WRN("unknown id: 0x%x", cp->id);
 		status = BTP_STATUS_FAILED;
@@ -407,7 +453,7 @@ static uint8_t unregister_service(const void *cmd, uint16_t cmd_len,
 		atomic_clear_bit(registered_services, cp->id);
 	}
 
-	return BTP_STATUS_FAILED;
+	return status;
 }
 
 static const struct btp_handler handlers[] = {

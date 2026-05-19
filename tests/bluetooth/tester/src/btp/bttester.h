@@ -138,3 +138,12 @@ uint8_t tester_unregister_tmap(void);
 
 uint8_t tester_init_ots(void);
 uint8_t tester_unregister_ots(void);
+
+uint8_t tester_init_bps(void);
+uint8_t tester_unregister_bps(void);
+
+uint8_t tester_init_wss(void);
+uint8_t tester_unregister_wss(void);
+
+uint8_t tester_init_sps(void);
+uint8_t tester_unregister_sps(void);

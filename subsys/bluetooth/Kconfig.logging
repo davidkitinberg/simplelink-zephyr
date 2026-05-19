@@ -410,16 +410,34 @@ module = BT_BAS
 module-str = BAS
 source "subsys/logging/Kconfig.template.log_config"
 
+# BPS
+
+module = BT_BPS
+module-str = BPS
+source "subsys/logging/Kconfig.template.log_config"
+
 # HRS
 
 module = BT_HRS
 module-str = HRS
 source "subsys/logging/Kconfig.template.log_config"
 
+# SPS (Scan Parameters Service / ScPS)
+
+module = BT_SPS
+module-str = SPS
+source "subsys/logging/Kconfig.template.log_config"
+
 # TPS
 
 module = BT_TPS
 module-str = TPS
+source "subsys/logging/Kconfig.template.log_config"
+
+# WSS
+
+module = BT_WSS
+module-str = WSS
 source "subsys/logging/Kconfig.template.log_config"
 
 # IAS

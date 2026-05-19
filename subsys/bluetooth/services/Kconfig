@@ -10,9 +10,15 @@ rsource "Kconfig.dis"
 
 rsource "Kconfig.bas"
 
+rsource "Kconfig.bps"
+
 rsource "Kconfig.hrs"
 
+rsource "Kconfig.sps"
+
 rsource "Kconfig.tps"
+
+rsource "Kconfig.wss"
 
 rsource "nus/Kconfig.nus"
 

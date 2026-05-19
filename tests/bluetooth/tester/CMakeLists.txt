@@ -33,5 +33,17 @@ if(CONFIG_BT_OTS)
     target_sources(app PRIVATE src/btp_ots.c)
 endif()
 
+if(CONFIG_BT_BPS)
+    target_sources(app PRIVATE src/btp_bps.c)
+endif()
+
+if(CONFIG_BT_WSS)
+    target_sources(app PRIVATE src/btp_wss.c)
+endif()
+
+if(CONFIG_BT_SPS)
+    target_sources(app PRIVATE src/btp_sps.c)
+endif()
+
 zephyr_library_include_directories(src src/btp src/audio/btp)
 add_subdirectory_ifdef(CONFIG_BT_AUDIO src/audio)

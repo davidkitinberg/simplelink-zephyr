@@ -20,7 +20,7 @@ documentation about how to use this test.
 
 Supported Profiles:
 
-GAP, GATT, SM
+GAP, GATT, SM, BPS, WSS, SPS/SCPS
 --------------------------------------------------------------------------------
 
 Building and running on QEMU:
@@ -35,8 +35,8 @@ Listening on /tmp/bt-server-bredr
 /tmp/bt-server-bredr option is already set in Makefile through QEMU_EXTRA_FLAGS.
 
 To build tester application for QEMU use BOARD=qemu_cortex_m3 and
-CONF_FILE=qemu.conf. After this qemu can be started through the "run"
-build target.
+CONF_FILE="prj.conf;boards/qemu_cortex_m3.conf". After this qemu can be
+started through the "run" build target.
 
 Note: Target board have to support enough UARTs for BTP and controller.
       We recommend using qemu_cortex_m3.
@@ -50,4 +50,3 @@ target.
 
 Use serial client, e.g. PUTTY to communicate over the serial port
 (typically /dev/ttyUSBx) with the tester using BTP.
-
