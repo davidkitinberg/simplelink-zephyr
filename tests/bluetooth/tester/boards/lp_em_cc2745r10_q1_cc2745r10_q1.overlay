@@ -1,0 +1,13 @@
+/*
+ * BTP tester overlay for TI LP_EM_CC2745R10_Q1.
+ *
+ * Use uart0 for BTP. Console output is disabled in the board .conf file.
+ */
+
+/ {
+	chosen {
+		zephyr,uart-pipe = &uart0;
+		/delete-property/ zephyr,console;
+		/delete-property/ zephyr,shell-uart;
+	};
+};
